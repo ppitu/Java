@@ -87,15 +87,17 @@ public class Start
 		*/
 		c.compute(5);
 		System.out.println(c.get());
-		c.compute(-10);
+		c.compute(2);
 		System.out.println(c.get());
 		c.compute(0);
 		System.out.println(c.get());
 		c.compute(5);
+		System.out.println(c.get());
 		c.compute(2);
 		System.out.println(c.get());
-		c.compute(0);
-		c.compute(-11);
+		c.compute(4);
+		System.out.println(c.get());
+		c.compute(2);
 		System.out.println(c.get());
 		c.compute(2);
 		System.out.println(c.get());
