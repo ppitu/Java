@@ -1,3 +1,5 @@
+
+
 import java.util.*;
 
 public class Destruction implements DestructionInterface {
@@ -40,7 +42,7 @@ public class Destruction implements DestructionInterface {
             String item = stack.pop();
             allObjects.forEach((possibleSourceOfDestruction, set) -> {
                 Set<String> connected = allObjects.get(possibleSourceOfDestruction);
-                if(connected.contains(item)){
+                if (connected.contains(item)) {
                     returned.add(possibleSourceOfDestruction);
                     stack.add(possibleSourceOfDestruction);
                 }
@@ -51,14 +53,47 @@ public class Destruction implements DestructionInterface {
     }
 
     public List<String> destructionPath(String source, String destroyedObject) {
+        Stack<String> stack = new Stack<>();
+        stack.push(source);
+        List<String> paths = new LinkedList<>();
+
+        while (!stack.isEmpty()) {
+            String top = stack.pop();
+            String topLetter = top;
+            if (top.length() > 1) {
+                topLetter = top.substring(top.length() - 1);
+            }
+            if (top.startsWith(source) && top.endsWith(destroyedObject)) {
+                paths.add(top);
+            }
+            Set<String> connectedWithTop = allObjects.get(topLetter);
+            if (connectedWithTop != null) {
+                connectedWithTop.forEach(el -> stack.push(top + el));
+            }
+        }
+        if (!paths.isEmpty()) {
+            return Arrays.asList(paths.get(0).split(""));
+        }
         return null;
     }
 
     public Map<String, Integer> sourceStatistics() {
-        return null;
+        Map<String, Integer> returnMap = new HashMap<>();
+        allObjects.forEach((k, v) -> {
+            Set<String> sources = allObjectsDestroyedBy(k);
+            int number = sources == null ? 0 : sources.size();
+            returnMap.put(k, number);
+        });
+        return returnMap;
     }
 
     public Map<String, Integer> destructionStatistics() {
-        return null;
+        Map<String, Integer> returnMap = new HashMap<>();
+        allObjects.forEach((k, v) -> {
+            Set<String> sources = allSourcesOfDestruction(k);
+            int number = sources == null ? 0 : sources.size();
+            returnMap.put(k, number);
+        });
+        return returnMap;
     }
 }
