@@ -63,7 +63,7 @@ class Start
 			}
 		};
 
-		Thread th1 = new Thread(runA);
+		/*Thread th1 = new Thread(runA);
 		Thread th2 = new Thread(runB);
 		Thread th3 = new Thread(runC);
 		Thread th4 = new Thread(runD);
@@ -94,15 +94,20 @@ class Start
 		System.out.println("Jest4");
 
 		System.out.println(x1.getInventory());
-		/*
+		}*/
 
-		x1.add(0, 5);
-		x1.add(1, 7);	
-		x1.add(2, 3);
-		System.out.println(x1.getInventory());
-		x1.add(0, 3);
-		System.out.println(x1.getInventory());
-		x1.request(map);
-		System.out.println(x1.getInventory());*/
-	}
+		Thread th1 = new Thread(runA);
+		
+		//try{
+		th1.start();
+		//} catch(InterruptedException e) {}
+
+		try{Thread.sleep(1000); } catch(InterruptedException e) {}
+
+		System.out.println(Thread.currentThread().getState());
+
+		th1.interrupt();
+		}
+
+
 }

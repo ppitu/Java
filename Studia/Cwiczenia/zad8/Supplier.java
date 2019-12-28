@@ -35,7 +35,7 @@ public class Supplier implements SupplierInterface
 				while(!zbior.containsKey(m.getKey()) || zbior.get(m.getKey()) < m.getValue())
 				{
 					try{
-					zbior.wait(100);
+					zbior.wait();
 					} catch(InterruptedException e){ System.out.println("Wait error"); return ;}
 				}
 			}
